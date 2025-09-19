@@ -225,11 +225,12 @@
 
   .es-settings {
     // height: 2.4rem;
-    width: auto; // 두 아이콘을 담는 컨테이너이므로 자동 너비
+    width: 88px; // 두 아이콘을 담는 컨테이너이므로 자동 너비
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 10px;
+    margin-right: 40px;
     margin-left: 0;
     line-height: 0;
 
@@ -251,11 +252,10 @@
 
     &-icon {
       width: 44px;
-      height: 40px;
+      height: 44px;
       margin-top: 0;
       margin-bottom: 0;
       margin-right: 10px;
-      margin-left: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
