@@ -1,11 +1,11 @@
 {
-  "name": "easysubs",
+  "name": "easysubs 4 grammar",
   "version": "3.1.0",
   "description": "Browser extension for learning languages with watching movies and TV shows",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Nitrino/easysubs.git"
+    "url": "https://github.com/hyungkee/easysubs-grammar"
   },
   "scripts": {
     "build": "tsc --noEmit && vite build",
