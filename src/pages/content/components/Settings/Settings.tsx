@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { $streaming } from "@src/models/streamings";
-import { $currentSubs } from "@src/models/subs";
+import { $currentSubs, $subs } from "@src/models/subs";
 import { $chatGPTApiKey, $chatGPTModel } from "@src/models/settings";
 
 import { useUnit } from "effector-react";
@@ -17,9 +17,10 @@ type TSettingsProps = {
 
 export const Settings: FC<TSettingsProps> = () => {
   const [showSettings, setShowSettings] = useState(false);
-  const [streaming, currentSubs, chatGPTApiKey, chatGPTModel] = useUnit([
+  const [streaming, currentSubs, allSubs, chatGPTApiKey, chatGPTModel] = useUnit([
     $streaming,
     $currentSubs,
+    $subs,
     $chatGPTApiKey,
     $chatGPTModel,
   ]);
@@ -32,11 +33,76 @@ export const Settings: FC<TSettingsProps> = () => {
   const handleGrammarClick = async (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
 
-    const text = (currentSubs || [])
-      .map((s) => (s?.cleanedText || s?.text || "").trim())
-      .filter(Boolean)
-      .join("\n")
-      .trim();
+    const toNormalized = (s: string) => s.replace(/\s+/g, " ").trim();
+    const endsWithSentencePunctuation = (s: string) => /[.!?…]["'”’)]*$/.test(s.trim());
+    const splitIntoSentences = (s: string) =>
+      (s.match(/[^.!?…]+[.!?…]*\s*/g) || []).map((x) => x.trim()).filter(Boolean);
+
+    let text = "";
+
+    if (currentSubs && currentSubs.length > 0 && allSubs && allSubs.length > 0) {
+      const windowSize = 5; // 앞뒤 5개 자막 고려
+      const currentIndex = currentSubs[0].id;
+      const startIndex = Math.max(0, currentIndex - windowSize);
+      const endIndex = Math.min(allSubs.length - 1, currentIndex + windowSize);
+
+      const contextText = allSubs
+        .slice(startIndex, endIndex + 1)
+        .map((s) => (s?.cleanedText || s?.text || "").trim())
+        .filter(Boolean)
+        .join(" ");
+
+      const currentText = toNormalized(
+        (currentSubs || [])
+          .map((s) => (s?.cleanedText || s?.text || "").trim())
+          .filter(Boolean)
+          .join(" ")
+      );
+
+      const sentences = splitIntoSentences(contextText);
+      const normalizedSentences = sentences.map(toNormalized);
+      const candidateIndexes = normalizedSentences
+        .map((sent, idx) => ({ idx, includes: sent.includes(currentText), len: sent.length }))
+        .filter((x) => x.includes)
+        .sort((a, b) => b.len - a.len);
+
+      if (candidateIndexes.length > 0) {
+        text = sentences[candidateIndexes[0].idx];
+      } else {
+        // 문장 분리가 어렵다면, 구두점 기준으로 좌/우 경계를 확장해서 선택
+        let left = startIndex - 1;
+        for (let i = currentIndex; i >= startIndex; i -= 1) {
+          const s = allSubs[i];
+          if (endsWithSentencePunctuation(s?.cleanedText || s?.text || "")) {
+            left = i;
+            break;
+          }
+        }
+
+        let right = endIndex;
+        for (let i = currentIndex; i <= endIndex; i += 1) {
+          const s = allSubs[i];
+          if (endsWithSentencePunctuation(s?.cleanedText || s?.text || "")) {
+            right = i;
+            break;
+          }
+        }
+
+        const sliceStart = Math.min(endIndex, Math.max(startIndex, left + 1));
+        const sliceEnd = Math.max(sliceStart, right);
+        text = allSubs
+          .slice(sliceStart, sliceEnd + 1)
+          .map((s) => (s?.cleanedText || s?.text || "").trim())
+          .filter(Boolean)
+          .join(" ")
+          .trim();
+
+        if (!text) {
+          // 최후 수단으로 윈도우 텍스트 사용
+          text = toNormalized(contextText);
+        }
+      }
+    }
 
     if (!text) {
       const id = "es-temp-grammar-toast";
