@@ -5,6 +5,7 @@ import { TranslateLanguage } from "./TranslateLanguage";
 import { TranslationService } from "./TranslationService";
 import { DeepLApiKeyModal } from "./DeepLApiKeyModal";
 import { ChatGPTApiKeyModal } from "./ChatGPTApiKeyModal";
+import { OpenAISettings } from "./OpenAISettings";
 import { LearningService } from "./LearningService";
 import { SubsDelay } from "./SubsDelay";
 import { SubsFontSize } from "./SubsFontSize";
@@ -110,6 +111,9 @@ export const SettingsContent: FC<{ onClose: () => void }> = ({ onClose }) => {
               </div>
               <div className="es-settings-content__item">
                 <TranslationService />
+              </div>
+              <div className="es-settings-content__item">
+                <OpenAISettings />
               </div>
               <div className="es-settings-content__item">
                 <LearningService />

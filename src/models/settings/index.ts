@@ -2,6 +2,7 @@ import { createStore, createEvent, sample, createEffect } from "effector";
 import { debug } from "patronum";
 
 import { withPersist } from "@src/utils/withPersist";
+import { loadOpenAIConfig } from "@src/utils/openaiStorage";
 import {
   addKeyboardEventsListeners,
   removeKeyboardEventsListeners,
@@ -97,6 +98,17 @@ export const chatGPTModelChangeFx = createEffect<string, string>(
 export const $chatGPTApiKeyModalOpen = createStore<boolean>(false);
 export const chatGPTApiKeyModalOpened = createEvent();
 export const chatGPTApiKeyModalClosed = createEvent();
+
+// Initialize OpenAI settings
+export const initializeOpenAISettingsFx = createEffect(async () => {
+  try {
+    const config = await loadOpenAIConfig();
+    return config;
+  } catch (error) {
+    console.error('Failed to initialize OpenAI settings:', error);
+    return { apiKey: '', model: 'gpt-4o-mini' };
+  }
+});
 
 export const $subsFontSize = withPersist(createStore<number>(100));
 export const subsFontSizeButtonPressed = createEvent<number>();
@@ -225,6 +237,10 @@ $chatGPTApiKey.on(chatGPTApiKeyChangeFx.doneData, (_, key) => key);
 $chatGPTModel.on(chatGPTModelChangeFx.doneData, (_, model) => model);
 $chatGPTApiKeyModalOpen.on(chatGPTApiKeyModalOpened, () => true);
 $chatGPTApiKeyModalOpen.on(chatGPTApiKeyModalClosed, () => false);
+
+// Handle OpenAI settings initialization results
+$chatGPTApiKey.on(initializeOpenAISettingsFx.doneData, (_, config) => config.apiKey);
+$chatGPTModel.on(initializeOpenAISettingsFx.doneData, (_, config) => config.model);
 $subsFontSize.on(
   subsFontSizeChangeFx.doneData,
   (_, subsFontSize) => subsFontSize,
