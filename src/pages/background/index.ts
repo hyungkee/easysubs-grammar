@@ -116,5 +116,53 @@ chrome.runtime.onMessage.addListener(function (message, _sender, sendResponse) {
       });
   }
 
+  if (message.type === "analyzeGrammar") {
+    const apiKey: string = message.chatGPTApiKey || "";
+    const model: string = message.chatGPTModel || "gpt-4o-mini";
+    const text: string = message.text || "";
+
+    if (!apiKey) {
+      sendResponse({ error: "OPENAI_API_KEY_MISSING" });
+      return true;
+    }
+
+    const prompt = `아래 스크립트의 문법을 간단히 분석해줘. 불필요한 말 없이, 분석내용만 작성해. => ${text}`;
+
+    fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model,
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+        temperature: 0.2,
+      }),
+    })
+      .then(async (resp) => {
+        if (!resp.ok) {
+          const errorText = await resp.text().catch(() => "");
+          throw new Error(`HTTP ${resp.status}: ${errorText}`);
+        }
+        return resp.json();
+      })
+      .then((data) => {
+        const content = data?.choices?.[0]?.message?.content || "";
+        sendResponse(content);
+      })
+      .catch((error) => {
+        console.error("analyzeGrammar error:", error);
+        sendResponse({ error: error.message || String(error) });
+      });
+
+    return true;
+  }
+
   return true;
 });

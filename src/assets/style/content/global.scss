@@ -457,3 +457,41 @@
 .es-grammar-toast.show {
   opacity: 1;
 }
+
+/* 문법 분석 오버레이: 화면 상단 좌우 중앙 정렬, X 버튼으로 닫기 */
+.es-grammar-overlay {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483647;
+  max-width: min(90vw, 960px);
+  width: auto;
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  border-radius: 8px;
+  padding: 14px 44px 14px 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  line-height: 1.5;
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+.es-grammar-overlay__close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.es-grammar-overlay__content {
+  max-height: 40vh;
+  overflow: auto;
+  scrollbar-width: thin;
+}
