@@ -510,7 +510,7 @@
 
 /* 문법 분석 오버레이: 화면 상단 좌우 중앙 정렬, X 버튼으로 닫기 */
 .es-grammar-overlay {
-  position: fixed;
+  position: fixed; /* 기본값: 화면 기준. JS에서 영상 기준으로 재계산하여 style로 덮어씀 */
   top: 24px;
   left: 50%;
   transform: translateX(-50%);

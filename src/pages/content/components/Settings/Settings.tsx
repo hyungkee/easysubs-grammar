@@ -132,8 +132,12 @@ export const Settings: FC<TSettingsProps> = () => {
       close.className = "es-grammar-overlay__close";
       close.textContent = "×";
       close.setAttribute("aria-label", "닫기");
+      // 닫기 버튼: 리스너/옵저버 정리 후 제거
       close.onclick = (ev) => {
         ev.stopPropagation();
+        try {
+          (overlay as any)?._cleanup?.();
+        } catch (_) {}
         overlay?.remove();
       };
 
@@ -142,8 +146,97 @@ export const Settings: FC<TSettingsProps> = () => {
 
       overlay.appendChild(close);
       overlay.appendChild(content);
-      document.body.appendChild(overlay);
+      // 오버레이를 서비스별 자막/플레이어 컨테이너에 부착 (없으면 body로 폴백)
+      let attachContainer: HTMLElement = document.body;
+      try {
+        attachContainer = streaming.getSubsContainer() || document.body;
+      } catch (_) {
+        attachContainer = document.body;
+      }
+      attachContainer.appendChild(overlay);
     }
+
+    // 기존에 다른 컨테이너에 붙어 있었다면 현재 서비스 컨테이너로 이동
+    try {
+      const desiredContainer = streaming.getSubsContainer() || document.body;
+      if (overlay.parentElement !== desiredContainer) {
+        desiredContainer.appendChild(overlay);
+      }
+    } catch (_) {
+      if (overlay.parentElement !== document.body) {
+        document.body.appendChild(overlay);
+      }
+    }
+
+    // 영상 기준 상단 중앙으로 오버레이 위치 고정
+    const positionOverlay = () => {
+      if (!overlay) return;
+      try {
+        let targetContainer: HTMLElement | null = null;
+        try {
+          targetContainer = streaming.getSubsContainer();
+        } catch (_) {
+          targetContainer = null;
+        }
+        const videoEl = (targetContainer?.querySelector?.("video") as HTMLElement) ||
+          (document.querySelector(".html5-main-video") as HTMLElement) ||
+          (targetContainer as HTMLElement) ||
+          (document.querySelector("video") as HTMLElement) ||
+          null;
+
+        if (!videoEl) {
+          // 폴백: 기본 CSS로 화면 중앙 상단
+          overlay.removeAttribute("style");
+          return;
+        }
+
+        const rect = videoEl.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const topY = rect.top + 12; // 영상 상단에서 약간 아래
+
+        overlay.setAttribute(
+          "style",
+          [
+            "position: fixed",
+            `left: ${Math.round(centerX)}px`,
+            `top: ${Math.round(Math.max(8, topY))}px`,
+            "transform: translateX(-50%)",
+            "z-index: 2147483647",
+            `max-width: ${Math.round(Math.min(Math.max(rect.width - 24, 240), 960))}px`,
+          ].join("; ")
+        );
+      } catch (_) {
+        // 폴백: 기본 CSS 유지
+        overlay.removeAttribute("style");
+      }
+    };
+
+    // 최초 위치 계산
+    positionOverlay();
+
+    // 리사이즈/스크롤/플레이어 변화에 대응
+    const onResize = () => positionOverlay();
+    const onScroll = () => positionOverlay();
+    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // 플레이어 크기 변화 감지 (영상 요소 기준)
+    let ro: ResizeObserver | null = null;
+    try {
+      const roTarget = (document.querySelector(".html5-main-video") as HTMLElement) ||
+        (streaming.getSubsContainer?.() as HTMLElement) ||
+        null;
+      if (roTarget && "ResizeObserver" in window) {
+        ro = new ResizeObserver(() => positionOverlay());
+        ro.observe(roTarget);
+      }
+    } catch (_) {}
+
+    (overlay as any)._cleanup = () => {
+      window.removeEventListener("resize", onResize as any);
+      window.removeEventListener("scroll", onScroll as any);
+      try { ro?.disconnect(); } catch (_) {}
+    };
 
     const contentEl = overlay.querySelector(".es-grammar-overlay__content") as HTMLDivElement;
     if (contentEl) {
