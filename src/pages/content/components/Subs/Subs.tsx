@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useUnit } from "effector-react";
 import Draggable from "react-draggable";
 
@@ -28,6 +28,8 @@ type TSubsProps = {};
 export const Subs: FC<TSubsProps> = () => {
   const [video, currentSubs, subsFontSize, moveBySubsEnabled, wasPaused, handleWasPausedChanged, autoStopEnabled] =
     useUnit([$video, $currentSubs, $subsFontSize, $moveBySubsEnabled, $wasPaused, wasPausedChanged, $autoStopEnabled]);
+  const [copied, setCopied] = useState(false);
+  const copyTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (moveBySubsEnabled) {
@@ -58,6 +60,29 @@ export const Subs: FC<TSubsProps> = () => {
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) {
+        clearTimeout(copyTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleCopyAll = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    const text = currentSubs.map((s) => s.cleanedText).join("\n");
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (_) {
+      // noop
+    }
+    setCopied(true);
+    if (copyTimeoutRef.current) {
+      clearTimeout(copyTimeoutRef.current);
+    }
+    copyTimeoutRef.current = window.setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <Draggable>
       <div
@@ -71,6 +96,16 @@ export const Subs: FC<TSubsProps> = () => {
         {currentSubs.map((sub) => (
           <Sub sub={sub} />
         ))}
+        {currentSubs.length > 0 && (
+          <>
+            <button className="es-subs-copy-btn" title="Copy all subtitles" onClick={handleCopyAll}>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+            </button>
+            {copied && <span className="es-subs-copied" aria-live="polite">Copied to Clipboard</span>}
+          </>
+        )}
       </div>
     </Draggable>
   );
