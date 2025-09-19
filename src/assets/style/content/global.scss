@@ -120,8 +120,15 @@
     height: 100%;
   }
 
+  .es-settings-icons {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 8px;
+  }
+
   .es-settings-icon {
-    margin: 0 12px;
+    margin: 0 4px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -129,7 +136,9 @@
 
     svg {
       width: 24px;
+      height: 24px;
       vertical-align: middle;
+      display: block;
     }
   }
 }
@@ -216,8 +225,13 @@
 
   .es-settings {
     // height: 2.4rem;
-    width: 52px;
-    margin-right: 30px;
+    width: auto; // 두 아이콘을 담는 컨테이너이므로 자동 너비
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    margin-left: 0;
+    line-height: 0;
 
     // @media screen and (min-width: 854px) {
     //   height: 5.2rem;
@@ -229,18 +243,28 @@
     //   margin-right: 39px;
     // }
 
+    &-icons {
+      display: flex;
+      align-items: center;
+      gap: 0; /* 넷플릭스 기본 간격과 유사하게 조정 */
+    }
+
     &-icon {
       width: 44px;
-      margin: 0;
+      height: 40px;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-right: 10px;
+      margin-left: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
 
       svg {
         width: 100%;
         height: 100%;
-
-        @media screen and (min-width: 854px) {
-          width: 40px;
-          height: 40px;
-        }
+        display: block;
       }
     }
   }
@@ -410,4 +434,26 @@
   .es-settings-content {
     bottom: 90px;
   }
+}
+
+/* 임시 Grammar 토스트: 상단 중앙에 잠깐 표시 */
+.es-grammar-toast {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2147483647;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease-in-out;
+}
+
+.es-grammar-toast.show {
+  opacity: 1;
 }
