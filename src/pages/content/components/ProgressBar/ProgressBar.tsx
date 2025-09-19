@@ -20,7 +20,8 @@ export const ProgressBar: FC<TProgressBarProps> = () => {
     }
     const time = getCurrentVideoTime(video);
     const leftBorder = time - TIME_PERIOD / 2;
-    const msInPx = TIME_PERIOD / progressBarRef.current.clientWidth;
+    const width = progressBarRef.current.clientWidth || 1;
+    const msInPx = TIME_PERIOD / width;
     const moveTime = leftBorder + event.nativeEvent.offsetX * msInPx;
     moveToTimeRequested(moveTime);
   }
@@ -34,7 +35,8 @@ export const ProgressBar: FC<TProgressBarProps> = () => {
     const time = getCurrentVideoTime(video);
     const leftBorder = time + TIME_PERIOD / 2;
     const rightBorder = time - TIME_PERIOD / 2;
-    const msInPx = progressBarRef.current.parentElement.clientWidth / TIME_PERIOD;
+    const containerWidth = progressBarRef.current.parentElement?.clientWidth || progressBarRef.current.clientWidth || 1;
+    const msInPx = containerWidth / TIME_PERIOD;
 
     const subsInDuration = subs.filter(
       (sub) => (sub.end > rightBorder && sub.end < leftBorder) || (sub.start > rightBorder && sub.start < leftBorder)
