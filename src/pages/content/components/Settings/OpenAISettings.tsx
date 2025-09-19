@@ -6,7 +6,7 @@ import {
   $chatGPTModel,
   chatGPTApiKeyModalOpened,
 } from "@src/models/settings";
-import { maskApiKey } from "@src/utils/openaiStorage";
+// Removed API Key preview import
 
 export const OpenAISettings: FC = () => {
   const [currentApiKey, currentModel, openModal] = useUnit([
@@ -41,20 +41,10 @@ export const OpenAISettings: FC = () => {
             </div>
 
             {hasApiKey && (
-              <>
-                <div className="es-openai-settings__status-item">
-                  <span className="es-openai-settings__label">API Key:</span>
-                  <span className="es-openai-settings__value">
-                    {maskApiKey(currentApiKey)}
-                  </span>
-                </div>
-                <div className="es-openai-settings__status-item">
-                  <span className="es-openai-settings__label">Model:</span>
-                  <span className="es-openai-settings__value">
-                    {currentModel}
-                  </span>
-                </div>
-              </>
+              <div className="es-openai-settings__status-item">
+                <span className="es-openai-settings__label">Model:</span>
+                <span className="es-openai-settings__value">{currentModel}</span>
+              </div>
             )}
           </div>
 

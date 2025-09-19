@@ -204,7 +204,7 @@
 
 .es-netflix {
   .es-settings-content {
-    bottom: 120px;
+    bottom: 10vh; /* 뷰포트 기준으로 위로 올려 하단 잘림 방지 */
     right: 85px;
   }
 
@@ -294,7 +294,7 @@
 
 .es-youtube {
   .es-settings-content {
-    bottom: 50px;
+    bottom: 10vh; /* 유튜브에서도 하단 여백 확보 */
   }
 }
 
