@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Terjemahan yang dapat disesuaikan dan kamus pop-up untuk menguasai kosakata Anda sambil menonton YouTube atau Netflix. Sumber terbuka dan gratis."
+  },
+  "grammar_prompt": {
+    "message": "Harap analisis secara singkat tata bahasa dari teks di bawah ini. Tulis hanya analisisnya tanpa kata-kata yang tidak perlu. Gunakan format ini:\n\nKalimat: (kalimat)\nTerjemahan: (terjemahan)\nAnalisis tata bahasa:\n(analisis)\n\nFokus pada poin-poin utama. Beberapa baris diperbolehkan demi keterbacaan. Kalimat yang akan dianalisis adalah: => $1"
   }
 }

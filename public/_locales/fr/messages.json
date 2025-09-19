@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Sous-titres personnalisables et dictionnaire contextuel pour maîtriser votre vocabulaire en regardant YouTube ou Netflix. Open-source et gratuit."
+  },
+  "grammar_prompt": {
+    "message": "Veuillez analyser brièvement la grammaire du texte ci-dessous. Écrivez uniquement l'analyse, sans mots superflus. Utilisez ce format :\n\nPhrase : (phrase)\nTraduction : (traduction)\nAnalyse grammaticale :\n(analyse)\n\nConcentrez-vous sur l'essentiel. Plusieurs lignes sont acceptées pour la lisibilité. La phrase à analyser est : => $1"
   }
 }

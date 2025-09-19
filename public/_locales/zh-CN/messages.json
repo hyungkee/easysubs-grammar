@@ -1,8 +1,11 @@
 {
   "appName": {
-    "message": "EasySubs 4 Grammar – 通过观看电影和剧集学习语言"
+    "message": "EasySubs 4 Grammar – 通过观看影视来学习语言"
   },
   "appDescription": {
-    "message": "可定制的字幕和弹出式词典，帮助您在观看YouTube或Netflix时掌握词汇。开源且免费。"
+    "message": "可自定义字幕与弹出词典，让你在观看 YouTube 或 Netflix 时提升词汇量。开源且免费。"
+  },
+  "grammar_prompt": {
+    "message": "请简要分析以下脚本的语法。不要写多余的话，只写分析内容。输出格式如下：\n\n句子：(句子)\n翻译：(翻译)\n语法分析：\n(语法分析)\n\n请聚焦关键点。为便于阅读，可以使用多行。需要分析的句子如下：=> $1"
   }
 }

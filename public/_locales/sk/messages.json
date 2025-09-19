@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Prispôsobiteľné titulky a vyskakovací slovník na zdokonalenie vašej slovnej zásoby pri sledovaní YouTube alebo Netflix. Open-source a zadarmo."
+  },
+  "grammar_prompt": {
+    "message": "Stručne analyzujte gramatiku nižšie uvedeného textu. Píšte iba analýzu bez zbytočných slov. Použite tento formát:\n\nVeta: (veta)\nPreklad: (preklad)\nGramatická analýza:\n(analýza)\n\nSústredte sa na kľúčové body. Kvôli čitateľnosti môžete použiť viac riadkov. Veta na analýzu je: => $1"
   }
 }

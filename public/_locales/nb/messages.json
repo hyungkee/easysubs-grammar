@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Tilpassbare undertekster og en pop-up-ordbok for å mestre ordforrådet ditt mens du ser på YouTube eller Netflix. Åpen kildekode og gratis."
+  },
+  "grammar_prompt": {
+    "message": "Analyser kort grammatikk i teksten nedenfor. Skriv bare analysen uten unødvendige ord. Bruk dette formatet:\n\nSetning: (setning)\nOversettelse: (oversettelse)\nGrammatisk analyse:\n(analyse)\n\nFokuser på nøkkelpunktene. Flere linjer er greit for lesbarhet. Setningen som skal analyseres er: => $1"
   }
 }

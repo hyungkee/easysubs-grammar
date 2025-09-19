@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Kohandatavad subtiitrid ja hüpikaken sõnaraamatuga, et arendada oma sõnavara YouTube'i või Netflixi vaadates. Avatud lähtekoodiga ja tasuta."
+  },
+  "grammar_prompt": {
+    "message": "Analüüsi lühidalt alloleva teksti grammatikat. Kirjuta ainult analüüs ilma liigsete sõnadeta. Kasuta seda vormingut:\n\nLause: (lause)\nTõlge: (tõlge)\nGrammatikaanalüüs:\n(analüüs)\n\nKeskendu peamistele punktidele. Loetavuse huvides võib kasutada mitut rida. Analüüsitav lause on: => $1"
   }
 }

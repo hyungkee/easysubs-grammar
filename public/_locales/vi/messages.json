@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Phụ đề tùy chỉnh và từ điển pop-up để nâng cao vốn từ vựng trong khi xem YouTube hoặc Netflix. Mã nguồn mở và miễn phí."
+  },
+  "grammar_prompt": {
+    "message": "Vui lòng phân tích ngắn gọn ngữ pháp của đoạn văn dưới đây. Chỉ viết phần phân tích, không cần lời thừa. Sử dụng định dạng này:\n\nCâu: (câu)\nBản dịch: (bản dịch)\nPhân tích ngữ pháp:\n(phân tích)\n\nTập trung vào các điểm chính. Có thể dùng nhiều dòng để dễ đọc. Câu cần phân tích là: => $1"
   }
 }

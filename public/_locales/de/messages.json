@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Anpassbare Untertitel und ein Popup-Wörterbuch zum Beherrschen Ihres Wortschatzes beim Ansehen von YouTube oder Netflix. Open-Source und kostenlos."
+  },
+  "grammar_prompt": {
+    "message": "Analysiere kurz die Grammatik des folgenden Textes. Schreibe nur die Analyse ohne unnötige Wörter. Verwende dieses Format:\n\nSatz: (Satz)\nÜbersetzung: (Übersetzung)\nGrammatikanalyse:\n(Analyse)\n\nKonzentriere dich auf die wichtigsten Punkte. Mehrere Zeilen sind zur Lesbarkeit in Ordnung. Der zu analysierende Satz ist: => $1"
   }
 }

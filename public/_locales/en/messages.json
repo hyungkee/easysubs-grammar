@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Customizable subtitles and a popup dictionary to master your vocabulary while watching YouTube or Netflix. Open-source and free."
+  },
+  "grammar_prompt": {
+    "message": "Please briefly analyze the grammar of the script below. Write only the analysis without unnecessary words. Output in this format:\n\nSentence: (sentence)\nTranslation: (translation)\nGrammar analysis:\n(grammar analysis)\n\nFocus on the key points. Multi-line is fine for readability. The sentence to analyze is this: => $1"
   }
 }

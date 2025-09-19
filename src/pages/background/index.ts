@@ -126,15 +126,7 @@ chrome.runtime.onMessage.addListener(function (message, _sender, sendResponse) {
       return true;
     }
 
-    const prompt = `아래 스크립트의 문법을 간단히 분석해줘. 불필요한 말 없이, 분석내용만 작성해. 출력은 이런 형식으로 해.
-    
-    문장: (문장)
-    번역: (번역)
-    문법 분석:
-    (문법 분석)
-    
-    문법 분석은 핵심 위주로 작성하고, 여러 줄이어도 되니까 가시성 좋게 표현해.
-    분석해야할 문장은 이거야. => ${text}`;
+    const prompt = chrome.i18n.getMessage("grammar_prompt", text);
 
     fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",

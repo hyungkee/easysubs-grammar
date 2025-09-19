@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Pielāgojami subtitri un uznirstošā vārdnīca, lai pilnveidotu savu vārdu krājumu, skatoties YouTube vai Netflix. Atvērtā pirmkoda un bezmaksas."
+  },
+  "grammar_prompt": {
+    "message": "Īsi analizējiet zemāk redzamā teksta gramatiku. Rakstiet tikai analīzi, bez liekiem vārdiem. Izmantojiet šo formātu:\n\nTeikums: (teikums)\nTulkojums: (tulkojums)\nGramatikas analīze:\n(analīze)\n\nKoncentrējieties uz galvenajiem punktiem. Lasāmības uzlabošanai drīkst izmantot vairākas rindas. Teikums analīzei: => $1"
   }
 }

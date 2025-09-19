@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Muokattavat tekstitykset ja ponnahdussanakirja sanavaraston kehittämiseen YouTubea tai Netflixiä katsoessa. Avoimen lähdekoodin ja ilmainen."
+  },
+  "grammar_prompt": {
+    "message": "Analysoi lyhyesti alla olevan tekstin kielioppia. Kirjoita vain analyysi ilman turhia sanoja. Käytä tätä muotoa:\n\nLause: (lause)\nKäännös: (käännös)\nKielioppianalyysi:\n(analyysi)\n\nKeskity keskeisiin kohtiin. Luettavuuden vuoksi voit käyttää useita rivejä. Analysoitava lause on: => $1"
   }
 }

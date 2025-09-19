@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Testreszabható feliratok és felugró szótár a szókincsed fejlesztéséhez YouTube vagy Netflix nézése közben. Nyílt forráskódú és ingyenes."
+  },
+  "grammar_prompt": {
+    "message": "Röviden elemezd az alábbi szöveg nyelvtanát. Csak az elemzést írd le, felesleges szavak nélkül. Használd ezt a formátumot:\n\nMondat: (mondat)\nFordítás: (fordítás)\nNyelvtani elemzés:\n(elemzés)\n\nA lényegre koncentrálj. Az olvashatóság érdekében több sor is megengedett. Az elemzendő mondat: => $1"
   }
 }

@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Subtítulos personalizables y un diccionario emergente para dominar tu vocabulario mientras ves YouTube o Netflix. De código abierto y gratuito."
+  },
+  "grammar_prompt": {
+    "message": "Analiza brevemente la gramática del siguiente texto. Escribe solo el análisis sin palabras innecesarias. Usa este formato:\n\nOración: (oración)\nTraducción: (traducción)\nAnálisis gramatical:\n(análisis)\n\nConcéntrate en los puntos clave. Se permiten varias líneas para mayor legibilidad. La oración a analizar es esta: => $1"
   }
 }

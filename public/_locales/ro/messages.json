@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Subtitrări personalizabile și un dicționar pop-up pentru a-ți îmbogăți vocabularul în timp ce urmărești YouTube sau Netflix. Cu sursă deschisă și gratuit."
+  },
+  "grammar_prompt": {
+    "message": "Analizează pe scurt gramatica textului de mai jos. Scrie doar analiza, fără cuvinte inutile. Folosește acest format:\n\nPropoziție: (propoziție)\nTraducere: (traducere)\nAnaliză gramaticală:\n(analiză)\n\nConcentrează-te pe punctele-cheie. Sunt permise mai multe rânduri pentru lizibilitate. Propoziția de analizat este: => $1"
   }
 }

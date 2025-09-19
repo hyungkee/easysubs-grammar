@@ -1,8 +1,11 @@
 {
   "appName": {
-    "message": "EasySubs 4 Grammar – Aprenda idiomas assistindo filmes e séries"
+    "message": "EasySubs 4 Grammar – Aprenda idiomas assistindo a filmes e séries"
   },
   "appDescription": {
-    "message": "Legendas personalizáveis e um dicionário pop-up para dominar seu vocabulário enquanto assiste YouTube ou Netflix. Código aberto e gratuito."
+    "message": "Legendas personalizáveis e um dicionário pop-up para aprimorar seu vocabulário enquanto assiste ao YouTube ou Netflix. Código aberto e gratuito."
+  },
+  "grammar_prompt": {
+    "message": "Analise brevemente a gramática do texto abaixo. Escreva apenas a análise, sem palavras desnecessárias. Use este formato:\n\nFrase: (frase)\nTradução: (tradução)\nAnálise gramatical:\n(análise)\n\nConcentre-se nos pontos-chave. Várias linhas são bem-vindas para legibilidade. A frase a analisar é: => $1"
   }
 }

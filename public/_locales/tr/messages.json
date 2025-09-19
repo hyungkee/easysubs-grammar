@@ -1,8 +1,11 @@
 {
   "appName": {
-    "message": "EasySubs 4 Grammar – Film ve dizi izleyerek dil öğrenin"
+    "message": "EasySubs 4 Grammar – Film ve diziler izleyerek dil öğrenin"
   },
   "appDescription": {
-    "message": "YouTube veya Netflix izlerken kelime dağarcığınızı geliştirmek için özelleştirilebilir altyazılar ve açılır sözlük. Açık kaynaklı ve ücretsiz."
+    "message": "YouTube veya Netflix izlerken kelime dağarcığınızı geliştirmek için özelleştirilebilir altyazılar ve açılır sözlük. Açık kaynak ve ücretsiz."
+  },
+  "grammar_prompt": {
+    "message": "Aşağıdaki metnin dilbilgisini kısaca analiz et. Gereksiz sözler olmadan, sadece analiz yaz. Şu biçimi kullan:\n\nCümle: (cümle)\nÇeviri: (çeviri)\nDilbilgisi analizi:\n(analiz)\n\nTemel noktalara odaklan. Okunabilirlik için birden çok satır olabilir. Analiz edilecek cümle: => $1"
   }
 }

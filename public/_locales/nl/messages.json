@@ -3,6 +3,9 @@
     "message": "EasySubs 4 Grammar – Leer talen door films en series te kijken"
   },
   "appDescription": {
-    "message": "Aanpasbare ondertitels en een pop-up woordenboek om je woordenschat te verbeteren terwijl je YouTube of Netflix kijkt. Open-source en gratis."
+    "message": "Aanpasbare ondertitels en een pop-upwoordenboek om je woordenschat te verbeteren tijdens het kijken naar YouTube of Netflix. Open-source en gratis."
+  },
+  "grammar_prompt": {
+    "message": "Analyseer kort de grammatica van de onderstaande tekst. Schrijf alleen de analyse, zonder overbodige woorden. Gebruik dit formaat:\n\nZin: (zin)\nVertaling: (vertaling)\nGrammaticanalyse:\n(analyse)\n\nFocus op de kernpunten. Meerdere regels zijn toegestaan voor de leesbaarheid. De zin om te analyseren is: => $1"
   }
 }

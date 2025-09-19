@@ -4,5 +4,8 @@
   },
   "appDescription": {
     "message": "Prilagodljivi podnapisi in pojavni slovar za obvladovanje besedišča med gledanjem YouTube-a ali Netflixa. Odprtokodno in brezplačno."
+  },
+  "grammar_prompt": {
+    "message": "Na kratko analizirajte slovnico spodnjega besedila. Napišite le analizo brez odvečnih besed. Uporabite ta format:\n\nStavek: (stavek)\nPrevod: (prevod)\nSlovnična analiza:\n(analiza)\n\nOsredotočite se na ključne točke. Za berljivost lahko uporabite več vrstic. Stavek za analizo je: => $1"
   }
 }
