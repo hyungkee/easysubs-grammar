@@ -495,7 +495,7 @@
 
 .es-coupangplay {
   #es {
-    bottom: 120px; // 기본 높이를 120px로 증가하여 재생막대와 겹치지 않게 함
+    bottom: 120px;
     font-size: 22px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     max-width: 80%;
@@ -509,7 +509,7 @@
   // 슬라이더가 보일 때 자막 위치 조정
   &:hover #es,
   &.es-controls-visible #es {
-    bottom: 160px; // 슬라이더가 활성화될 때 더 위로 올림
+    bottom: 180px; // 슬라이더가 활성화될 때 더 위로 올림
     z-index: 1001; // 슬라이더가 활성화될 때 더 높은 우선순위
   }
 
