@@ -40,6 +40,7 @@ const manifest = {
         "https://www.primevideo.com/*",
         "https://www.amazon.de/*/video/*",
         "https://inoriginal.online/*",
+        "https://www.coupangplay.com/*",
       ],
       js: ["src/pages/contentInjected/index.js"],
       // KEY for cache invalidation

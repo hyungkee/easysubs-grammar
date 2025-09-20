@@ -486,6 +486,71 @@
   }
 }
 
+.es-coupangplay {
+  #es {
+    bottom: 80px;
+    font-size: 22px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    max-width: 80%;
+    word-wrap: break-word;
+  }
+
+  .es-settings {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .es-settings-icons {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    margin: 0;
+    flex-direction: row; /* 가로 배치 강제 */
+  }
+
+  .es-settings-icon {
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    margin: 0;
+    background: transparent;
+    border: none;
+    transition: all 0.2s ease;
+
+    svg {
+      width: 34px;
+      height: 34px;
+      color: #fff;
+      opacity: 0.8;
+      transition: opacity 0.2s ease;
+    }
+
+    &:hover {
+      svg {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .es-settings-content {
+    bottom: 10vh;
+  }
+}
+
+.es-coupangplay.es-enabled {
+  .vjs-text-track-display {
+    display: none !important;
+  }
+}
+
 /* 임시 Grammar 토스트: 상단 중앙에 잠깐 표시 */
 .es-grammar-toast {
   position: fixed;

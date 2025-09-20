@@ -10,6 +10,7 @@ import Udemy from "@src/streamings/udemy";
 import Kinopoisk from "@src/streamings/kinopoisk";
 import Amazon from "@src/streamings/amazon";
 import Inoriginal from "@src/streamings/inoriginal";
+import CoupangPlay from "@src/streamings/coupangplay";
 
 export const getCurrentService = (): Service => {
   const titleContent = document.querySelector("title")?.textContent;
@@ -51,6 +52,18 @@ export const getCurrentService = (): Service => {
   if (window.location.host === "inoriginal.online") {
     return new Inoriginal();
   }
+  
+  if (titleContent?.includes("쿠팡플레이") || 
+      titleContent?.includes("Coupang Play") ||
+      window.location.host === "www.coupangplay.com" ||
+      window.location.host.includes("coupangplay")) {
+    console.log("=== 쿠팡플레이 감지됨 ===");
+    console.log("제목:", titleContent);
+    console.log("호스트:", window.location.host);
+    document.querySelector("html")?.setAttribute("id", "coupangplay");
+    return new CoupangPlay();
+  }
+  
   // if (
   //   titleContent?.includes("Prime Video") ||
   //   window.location.host.includes("amazon") ||
