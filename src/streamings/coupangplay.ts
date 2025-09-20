@@ -32,6 +32,7 @@ class CoupangPlay implements Service {
       console.log("비디오 요소 발견, 설정 렌더링 시작");
       window.postMessage({ type: 'COUPANGPLAY_LOG', message: '비디오 요소 발견, 설정 렌더링 시작' }, '*');
       esRenderSetings();
+      this.setupControlsVisibilityDetection();
     });
     
     this.handleCoupangPlayLoaded = this.handleCoupangPlayLoaded.bind(this);
@@ -544,6 +545,114 @@ class CoupangPlay implements Service {
       childList: true,
       subtree: true
     });
+  }
+
+  // 컨트롤 슬라이더 가시성 감지 설정
+  private setupControlsVisibilityDetection(): void {
+    console.log("쿠팡플레이 컨트롤 가시성 감지 설정 시작");
+    window.postMessage({ type: 'COUPANGPLAY_LOG', message: '쿠팡플레이 컨트롤 가시성 감지 설정 시작' }, '*');
+    
+    const videoElement = document.querySelector("video");
+    if (!videoElement) return;
+    
+    let controlsVisible = false;
+    let hideTimeout: NodeJS.Timeout | null = null;
+    
+    // 마우스 이벤트로 컨트롤 가시성 감지
+    const handleMouseMove = (event: MouseEvent) => {
+      // 자막 영역에 마우스가 있을 때는 컨트롤 상태를 변경하지 않음
+      const target = event.target as HTMLElement;
+      if (target && (target.closest('#es') || target.closest('.es-sub') || target.closest('.es-sub-item'))) {
+        return; // 자막 영역에서는 컨트롤 상태 변경하지 않음
+      }
+      
+      if (!controlsVisible) {
+        controlsVisible = true;
+        document.body.classList.add('es-coupangplay', 'es-controls-visible');
+        console.log("컨트롤 표시됨 - 자막 위치 조정");
+        window.postMessage({ type: 'COUPANGPLAY_LOG', message: '컨트롤 표시됨 - 자막 위치 조정' }, '*');
+      }
+      
+      // 기존 타이머 클리어
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+      
+      // 3초 후에 컨트롤 숨김
+      hideTimeout = setTimeout(() => {
+        controlsVisible = false;
+        document.body.classList.remove('es-controls-visible');
+        console.log("컨트롤 숨김 - 자막 위치 복원");
+        window.postMessage({ type: 'COUPANGPLAY_LOG', message: '컨트롤 숨김 - 자막 위치 복원' }, '*');
+      }, 3000);
+    };
+    
+    const handleMouseLeave = () => {
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+      hideTimeout = setTimeout(() => {
+        controlsVisible = false;
+        document.body.classList.remove('es-controls-visible');
+        console.log("마우스 떠남 - 자막 위치 복원");
+        window.postMessage({ type: 'COUPANGPLAY_LOG', message: '마우스 떠남 - 자막 위치 복원' }, '*');
+      }, 1000);
+    };
+    
+    // 비디오 플레이어 컨테이너에 이벤트 리스너 추가
+    const playerContainer = this.getSubsContainer();
+    if (playerContainer) {
+      playerContainer.addEventListener('mousemove', handleMouseMove);
+      playerContainer.addEventListener('mouseleave', handleMouseLeave);
+      console.log("컨트롤 가시성 감지 이벤트 리스너 추가됨");
+      window.postMessage({ type: 'COUPANGPLAY_LOG', message: '컨트롤 가시성 감지 이벤트 리스너 추가됨' }, '*');
+    }
+    
+    // 자막 영역에 별도의 이벤트 리스너 추가
+    const setupSubtitleEventListeners = () => {
+      const subtitleContainer = document.querySelector('#es');
+      if (subtitleContainer) {
+        // 자막 영역에서 마우스 이벤트가 제대로 전파되도록 보장
+        subtitleContainer.addEventListener('mouseenter', (event) => {
+          event.stopPropagation(); // 이벤트 전파 중단
+          console.log("자막 영역 마우스 진입 - 이벤트 전파 중단");
+          window.postMessage({ type: 'COUPANGPLAY_LOG', message: '자막 영역 마우스 진입 - 이벤트 전파 중단' }, '*');
+        });
+        
+        subtitleContainer.addEventListener('mouseleave', (event) => {
+          event.stopPropagation(); // 이벤트 전파 중단
+          console.log("자막 영역 마우스 떠남 - 이벤트 전파 중단");
+          window.postMessage({ type: 'COUPANGPLAY_LOG', message: '자막 영역 마우스 떠남 - 이벤트 전파 중단' }, '*');
+        });
+        
+        console.log("자막 영역 이벤트 리스너 추가됨");
+        window.postMessage({ type: 'COUPANGPLAY_LOG', message: '자막 영역 이벤트 리스너 추가됨' }, '*');
+      }
+    };
+    
+    // 자막이 생성될 때마다 이벤트 리스너 설정
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              const element = node as Element;
+              if (element.id === 'es' || element.querySelector('#es')) {
+                setupSubtitleEventListeners();
+              }
+            }
+          });
+        }
+      });
+    });
+    
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+    
+    // 초기 자막이 이미 있는 경우
+    setupSubtitleEventListeners();
   }
 
 }

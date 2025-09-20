@@ -30,23 +30,30 @@
     padding: 0 10px;
     cursor: pointer;
     position: relative;
+    z-index: 1002; // 자막 텍스트가 최상위에 오도록
+    pointer-events: auto; // 마우스 이벤트 강제 활성화
   }
 
   .es-sub-item {
     display: inline;
     position: relative;
+    z-index: 1003; // 개별 단어들이 최상위에 오도록
+    pointer-events: auto; // 마우스 이벤트 강제 활성화
 
     pre {
       display: inline;
+      pointer-events: auto; // pre 태그도 마우스 이벤트 활성화
     }
 
     &:hover {
       color: #3a88a2;
       cursor: pointer;
+      z-index: 1004; // 호버 시 최상위 우선순위
     }
 
     &-highlighted {
       color: #3a88a2;
+      z-index: 1004; // 하이라이트된 단어도 최상위 우선순위
     }
   }
   .es-sub-item-space {
@@ -488,11 +495,22 @@
 
 .es-coupangplay {
   #es {
-    bottom: 80px;
+    bottom: 120px; // 기본 높이를 120px로 증가하여 재생막대와 겹치지 않게 함
     font-size: 22px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     max-width: 80%;
     word-wrap: break-word;
+    transition: bottom 0.3s ease;
+    z-index: 1000; // 재생 막대보다 위에 표시
+    pointer-events: auto; // 마우스 이벤트 활성화
+    position: relative; // z-index가 작동하도록
+  }
+
+  // 슬라이더가 보일 때 자막 위치 조정
+  &:hover #es,
+  &.es-controls-visible #es {
+    bottom: 160px; // 슬라이더가 활성화될 때 더 위로 올림
+    z-index: 1001; // 슬라이더가 활성화될 때 더 높은 우선순위
   }
 
   .es-settings {
